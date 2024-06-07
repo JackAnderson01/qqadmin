@@ -8,13 +8,13 @@ const Reports = () => {
       <div className="w-full mt-6">
         <div className="w-full grid grid-cols-3 gap-6 border rounded-t-xl">
           <div className="px-6 py-5">
-            <h2 className="font-medium text-[#c00000]">User</h2>
+            <h2 className="font-medium text-[#c00000] text-sm">User</h2>
           </div>
           <div className="px-6 py-5">
-            <h2 className="font-medium text-[#c00000]">Deactivation Reason</h2>
+            <h2 className="font-medium text-[#c00000] text-sm">Reason of Deactivation</h2>
           </div>
           <div className="px-6 py-5">
-            <h2 className="font-medium text-[#c00000]">Date</h2>
+            <h2 className="font-medium text-[#c00000] text-sm">Date</h2>
           </div>
         </div>
         <div className="w-full grid grid-cols-3 gap-6 border border-t-0">
