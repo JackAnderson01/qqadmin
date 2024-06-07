@@ -9,6 +9,7 @@ import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { TbClover } from "react-icons/tb";
 import { HiOutlineLogout } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import { LuFolderOpenDot } from "react-icons/lu";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const sidebarRef = useRef(null);
@@ -52,6 +53,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           title={"Revenue"}
           link={"/revenue"}
           icon={<TbBrandGoogleAnalytics />}
+        />
+        <SidebarLink
+          title={"Reports"}
+          link={"/reports"}
+          icon={<LuFolderOpenDot />}
         />
         <SidebarLink
           title={"Subscriptions"}
