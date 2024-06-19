@@ -1,14 +1,75 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthMockup, VerifyEmailMockup } from "../assets/export";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { GlobalContext } from "../context/GlobalContext";
+import { validateEmail } from "../utils/validators";
+import Error from "../components/globals/Error";
+import BtnLoader from "../components/globals/BtnLoader";
+
 const VerifyEmail = () => {
-  const navigate = useNavigate();
+  const { baseUrl, navigate } = useContext(GlobalContext);
+  // Error States
+  const [emailError, setEmailError] = useState(false);
+  const [formError, setFormError] = useState(false);
+  // Loading States
+  const [loading, setLoading] = useState(false);
+  // States to manage the data
+  const [email, setEmail] = useState("");
+
+  function handleEmailVerification(e) {
+    e.preventDefault();
+    if (email == "") {
+      setEmailError("Email is required.");
+      setTimeout(() => {
+        setEmailError(false);
+      }, 3000);
+    } else if (!validateEmail(email)) {
+      setEmailError("Email not in correct format.");
+      setTimeout(() => {
+        setEmailError(false);
+      }, 3000);
+    } else {
+      setLoading(true);
+      axios
+        .post(`${baseUrl}/auth/sendPassOTP`, {
+          email: email,
+        })
+        .then(
+          (response) => {
+            if (response?.status == 201) {
+              Cookies.set("email", email, { expires: 7 });
+              navigate("/verify-otp", "Dashboard");
+            }
+            setLoading(false);
+          },
+          (error) => {
+            setLoading(false);
+            setFormError(error?.response?.data?.message);
+          }
+        );
+    }
+  }
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      navigate("/dashboard", "Dashboard");
+    }
+  }, []);
+
   return (
     <div className="font-[sans-serif] text-[#333]">
+      {/* Email Error */}
+      {emailError && <Error error={emailError} setError={setEmailError} />}
+
+      {/* Form Error */}
+      {formError && <Error error={formError} setError={setFormError} />}
+
       <div className="min-h-screen flex fle-col items-center justify-center py-6 px-4">
         <div className="grid md:grid-cols-2 items-center gap-4 max-w-7xl w-full">
           <div className="border border-gray-300 rounded-md p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleEmailVerification}>
               <div className="mb-10">
                 <h3 className="text-3xl font-extrabold">Verify Email</h3>
                 <p className="text-sm mt-4">
@@ -20,8 +81,9 @@ const VerifyEmail = () => {
                 <div className="relative flex items-center">
                   <input
                     name="email"
-                    type="email"
-                    required
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full text-sm border border-gray-300 px-4 py-3 rounded-md outline-[#333]"
                     placeholder="Enter email"
                   />
@@ -48,11 +110,10 @@ const VerifyEmail = () => {
 
               <div className="!mt-4">
                 <button
-                  type="button"
-                  onClick={() => navigate("/verify-otp")}
+                  type="submit"
                   className="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded-md text-white bg-[#c00000] hover:bg-red-600 focus:outline-none"
                 >
-                  Send OTP
+                  {loading ? <BtnLoader /> : "Send OTP"}
                 </button>
               </div>
             </form>

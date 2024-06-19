@@ -9,6 +9,7 @@ import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { TbClover } from "react-icons/tb";
 import { HiOutlineLogout } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const sidebarRef = useRef(null);
@@ -20,6 +21,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   };
 
   const navigateToLogin = () => {
+    Cookies.remove("token");
     navigate("/login");
   };
   return (
@@ -53,11 +55,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           link={"/revenue"}
           icon={<TbBrandGoogleAnalytics />}
         />
-        <SidebarLink
+        {/* <SidebarLink
           title={"Subscriptions"}
           link={"/subscriptions"}
           icon={<IoAnalyticsOutline />}
-        />
+        /> */}
         <button
           onClick={() => navigateToLogin()}
           className="group w-full h-12 border border-gray-200 hover:border-[#c00000] focus:border-[#c00000] rounded-full flex justify-start items-center "

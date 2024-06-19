@@ -91,10 +91,6 @@ const Subscription = () => {
                 </div>
               </div>
 
-              <button className="w-full h-10 mt-4 rounded-full hover:opacity-90 bg-[#c00000] text-white text-sm font-medium">
-                Edit Pricing
-              </button>
-
               <div>
                 <span class="absolute right-0 top-7 z-[-1]">
                   <svg
@@ -419,10 +415,6 @@ const Subscription = () => {
                 </div>
               </div>
 
-              <button className="w-full h-10 mt-4 rounded-full hover:opacity-90 bg-[#c00000] text-white text-sm font-medium">
-                Edit Pricing
-              </button>
-
               <div>
                 <span class="absolute right-0 top-7 z-[-1]">
                   <svg
@@ -746,10 +738,6 @@ const Subscription = () => {
                   <p className="text-sm text-slate-600">50</p>
                 </div>
               </div>
-
-              <button className="w-full h-10 mt-4 rounded-full hover:opacity-90 bg-[#c00000] text-white text-sm font-medium">
-                Edit Pricing
-              </button>
 
               <div>
                 <span class="absolute right-0 top-7 z-[-1]">

@@ -30,10 +30,10 @@ function App() {
         path="/notifications"
         element={<GlobalLayout page={<Notifications />} />}
       />
-      <Route
+      {/* <Route
         path="/subscriptions"
         element={<GlobalLayout page={<Subscription />} />}
-      />
+      /> */}
       <Route path="/revenue" element={<GlobalLayout page={<Revenue />} />} />
       <Route path="/matches" element={<GlobalLayout page={<Matches />} />} />
     </Routes>

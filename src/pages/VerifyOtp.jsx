@@ -1,14 +1,74 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthMockup, VerifyOtpMockup } from "../assets/export";
 import { Link, useNavigate } from "react-router-dom";
+import { GlobalContext } from "../context/GlobalContext";
+import axios from "axios";
+import Cookies from "js-cookie";
+import BtnLoader from "../components/globals/BtnLoader";
+import Error from "../components/globals/Error";
+
 const VerifyOtp = () => {
-  const navigate = useNavigate();
+  const { baseUrl, navigate } = useContext(GlobalContext);
+  // Error States
+  const [otpError, setOtpError] = useState(false);
+  const [formError, setFormError] = useState(false);
+  // Loading States
+  const [loading, setLoading] = useState(false);
+  // States to manage the data
+  const [otp, setOtp] = useState("");
+
+  function handleOtpVerification(e) {
+    e.preventDefault();
+    if (otp == "") {
+      setOtpError("Otp is required.");
+      setTimeout(() => {
+        setOtpError(false);
+      }, 3000);
+    } else if (otp.length < 4) {
+      setOtpError("Minimum Otp length is 4.");
+      setTimeout(() => {
+        setOtpError(false);
+      }, 3000);
+    } else {
+      setLoading(true);
+      axios
+        .post(`${baseUrl}/auth/validatePassOTP`, {
+          email: Cookies.get("email"),
+          code: otp,
+        })
+        .then(
+          (response) => {
+            if (response?.status == 200) {
+              Cookies.set("forgetToken", response?.data?.token, { expires: 1 });
+              navigate("/change-password", "Dashboard");
+            }
+            setLoading(false);
+          },
+          (error) => {
+            setLoading(false);
+            setFormError(error?.response?.data?.message);
+          }
+        );
+    }
+  }
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      navigate("/dashboard", "Dashboard");
+    }
+  }, []);
+
   return (
     <div className="font-[sans-serif] text-[#333]">
+      {/* Email Error */}
+      {otpError && <Error error={otpError} setError={setOtpError} />}
+
+      {/* Form Error */}
+      {formError && <Error error={formError} setError={setFormError} />}
       <div className="min-h-screen flex fle-col items-center justify-center py-6 px-4">
         <div className="grid md:grid-cols-2 items-center gap-4 max-w-7xl w-full">
           <div className="border border-gray-300 rounded-md p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleOtpVerification}>
               <div className="mb-10">
                 <h3 className="text-3xl font-extrabold">Verify OTP</h3>
                 <p className="text-sm mt-4">
@@ -21,7 +81,9 @@ const VerifyOtp = () => {
                   <input
                     name="otp"
                     type="password"
-                    required
+                    value={otp}
+                    maxLength={4}
+                    onChange={(e) => setOtp(e.target.value)}
                     className="w-full text-sm border border-gray-300 px-4 py-3 rounded-md outline-[#333]"
                     placeholder="OTP Code"
                   />
@@ -42,11 +104,10 @@ const VerifyOtp = () => {
 
               <div className="!mt-4">
                 <button
-                  type="button"
-                  onClick={() => navigate("/change-password")}
+                  type="submit"
                   className="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded-md text-white bg-[#c00000] hover:bg-red-600 focus:outline-none"
                 >
-                  Verify OTP
+                  {loading ? <BtnLoader /> : "Verify OTP"}
                 </button>
               </div>
             </form>
