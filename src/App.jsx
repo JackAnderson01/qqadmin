@@ -12,6 +12,7 @@ import Notifications from "./pages/Notifications";
 import Subscription from "./pages/Subscription";
 import Revenue from "./pages/Revenue";
 import Matches from "./pages/Matches";
+import Reports from "./pages/Reports";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         element={<GlobalLayout page={<Subscription />} />}
       /> */}
       <Route path="/revenue" element={<GlobalLayout page={<Revenue />} />} />
+      <Route path="/reports" element={<GlobalLayout page={<Reports />} />} />
       <Route path="/matches" element={<GlobalLayout page={<Matches />} />} />
     </Routes>
   );
