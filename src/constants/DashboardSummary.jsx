@@ -13,10 +13,5 @@ export const summary = [
     count: "4,567",
     image: CustomersChart,
   },
-  {
-    title: "Users",
-    timing: "this month",
-    count: "4,567",
-    image: ProgressBar,
-  },
+  
 ];

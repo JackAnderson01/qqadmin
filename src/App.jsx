@@ -35,6 +35,7 @@ function App() {
         path="/subscriptions"
         element={<GlobalLayout page={<Subscription />} />}
       /> */}
+      <Route path="/reports" element={<GlobalLayout page={<Reports />} />} />
       <Route path="/revenue" element={<GlobalLayout page={<Revenue />} />} />
       <Route path="/reports" element={<GlobalLayout page={<Reports />} />} />
       <Route path="/matches" element={<GlobalLayout page={<Matches />} />} />

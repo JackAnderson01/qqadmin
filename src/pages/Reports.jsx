@@ -1,233 +1,146 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { GlobalContext } from "../context/GlobalContext";
+import NoData from "../components/globals/NoData";
+import Loader from "../components/globals/Loader";
 
 const Reports = () => {
-  return (
-    <div className="w-full">
-      <h1 className="text-stone-700 text-xl font-bold">Reports</h1>
+  const { baseUrl, navigate } = useContext(GlobalContext);
+  const [reasons, setReasons] = useState([]);
+  const [reasonsLoading, setReasonsLoading] = useState(false);
 
-      <div className="w-full mt-6">
-        <div className="w-full grid grid-cols-3 gap-6 border rounded-t-xl">
-          <div className="px-6 py-5">
-            <h2 className="font-medium text-[#c00000] text-sm">User</h2>
-          </div>
-          <div className="px-6 py-5">
-            <h2 className="font-medium text-[#c00000] text-sm">Reason of Deactivation</h2>
-          </div>
-          <div className="px-6 py-5">
-            <h2 className="font-medium text-[#c00000] text-sm">Date</h2>
-          </div>
-        </div>
-        <div className="w-full grid grid-cols-3 gap-6 border border-t-0">
-          <div className="px-6 py-3 flex items-center gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="user-profile"
-              className="w-10 h-10 rounded-full object-cover object-center"
-            />
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs font-medium text-gray-500">
-                johndoe@gmail.com
-              </p>
-            </div>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">Taking a break</p>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">08.06.2024</p>
-          </div>
-        </div>
-        <div className="w-full grid grid-cols-3 gap-6 border border-t-0">
-          <div className="px-6 py-3 flex items-center gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="user-profile"
-              className="w-10 h-10 rounded-full object-cover object-center"
-            />
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs font-medium text-gray-500">
-                johndoe@gmail.com
-              </p>
-            </div>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">Taking a break</p>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">08.06.2024</p>
-          </div>
-        </div>
-        <div className="w-full grid grid-cols-3 gap-6 border border-t-0">
-          <div className="px-6 py-3 flex items-center gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="user-profile"
-              className="w-10 h-10 rounded-full object-cover object-center"
-            />
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs font-medium text-gray-500">
-                johndoe@gmail.com
-              </p>
-            </div>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">Taking a break</p>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">08.06.2024</p>
-          </div>
-        </div>
-        <div className="w-full grid grid-cols-3 gap-6 border border-t-0">
-          <div className="px-6 py-3 flex items-center gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="user-profile"
-              className="w-10 h-10 rounded-full object-cover object-center"
-            />
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs font-medium text-gray-500">
-                johndoe@gmail.com
-              </p>
-            </div>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">Taking a break</p>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">08.06.2024</p>
-          </div>
-        </div>
-        <div className="w-full grid grid-cols-3 gap-6 border border-t-0">
-          <div className="px-6 py-3 flex items-center gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="user-profile"
-              className="w-10 h-10 rounded-full object-cover object-center"
-            />
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs font-medium text-gray-500">
-                johndoe@gmail.com
-              </p>
-            </div>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">Taking a break</p>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">08.06.2024</p>
-          </div>
-        </div>
-        <div className="w-full grid grid-cols-3 gap-6 border border-t-0">
-          <div className="px-6 py-3 flex items-center gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="user-profile"
-              className="w-10 h-10 rounded-full object-cover object-center"
-            />
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs font-medium text-gray-500">
-                johndoe@gmail.com
-              </p>
-            </div>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">Taking a break</p>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">08.06.2024</p>
-          </div>
-        </div>
-        <div className="w-full grid grid-cols-3 gap-6 border border-t-0">
-          <div className="px-6 py-3 flex items-center gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="user-profile"
-              className="w-10 h-10 rounded-full object-cover object-center"
-            />
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs font-medium text-gray-500">
-                johndoe@gmail.com
-              </p>
-            </div>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">Taking a break</p>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">08.06.2024</p>
-          </div>
-        </div>
-        <div className="w-full grid grid-cols-3 gap-6 border border-t-0">
-          <div className="px-6 py-3 flex items-center gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="user-profile"
-              className="w-10 h-10 rounded-full object-cover object-center"
-            />
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs font-medium text-gray-500">
-                johndoe@gmail.com
-              </p>
-            </div>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">Taking a break</p>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">08.06.2024</p>
-          </div>
-        </div>
-        <div className="w-full grid grid-cols-3 gap-6 border border-t-0">
-          <div className="px-6 py-3 flex items-center gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="user-profile"
-              className="w-10 h-10 rounded-full object-cover object-center"
-            />
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs font-medium text-gray-500">
-                johndoe@gmail.com
-              </p>
-            </div>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">Taking a break</p>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">08.06.2024</p>
-          </div>
-        </div>
-        <div className="w-full grid grid-cols-3 gap-6 border border-t-0 rounded-b-xl">
-          <div className="px-6 py-3 flex items-center gap-2">
-            <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="user-profile"
-              className="w-10 h-10 rounded-full object-cover object-center"
-            />
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs font-medium text-gray-500">
-                johndoe@gmail.com
-              </p>
-            </div>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">Taking a break</p>
-          </div>
-          <div className="px-6 flex items-center justify-start">
-            <p className="text-sm">08.06.2024</p>
-          </div>
-        </div>
+  const getReasons = () => {
+    const token = Cookies.get("token");
+
+    if (token) {
+      setReasonsLoading(true);
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      axios.get(`${baseUrl}/admin/reasons`, { headers }).then(
+        (response) => {
+          console.log(response);
+          setReasons(response?.data?.data);
+          setReasonsLoading(false);
+        },
+        (error) => {
+          setReasonsLoading(false);
+          if (error?.response?.status == 401) {
+            setIsLoggedIn(false);
+            Cookies.remove("token");
+            navigate("/login");
+          }
+        }
+      );
+    } else {
+      navigate("/login");
+    }
+  };
+
+  useEffect(() => {
+    getReasons();
+  }, []);
+
+  const convertDate = (dateIso) => {
+    const date = new Date(dateIso);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${month}/${day}/${year}`;
+  };
+  const [searchInput, setSearchInput] = useState("");
+  const filteredData = reasons?.filter(
+    (reason) =>
+      reason?.fullName?.toLowerCase().includes(searchInput.toLowerCase()) ||
+      reason?.email?.toLowerCase().includes(searchInput.toLowerCase())
+  );
+  return (
+    <div className="w-full flex flex-col justify-start items-start gap-3">
+      <div className="w-full flex justify-start items-center gap-4  ">
+        <input
+          type="text"
+          id="name"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          placeholder="e.g. John Smith"
+          className="mt-2 block w-full rounded-full border border-gray-200 px-3 py-2 shadow-sm outline-none focus:border-[#c00000] focus:ring focus:ring-red-200 focus:ring-opacity-50"
+        />
+
+        <button className="active:scale-95 rounded-full bg-[#c00000] px-8 py-2 font-medium text-white outline-none focus:ring focus:ring-red-200 hover:opacity-90">
+          Search
+        </button>
       </div>
+      {reasonsLoading ? (
+        <Loader />
+      ) : filteredData?.length == 0 ? (
+        <NoData />
+      ) : (
+        <div className="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white px-6 py-2 ">
+          {
+            <table className="w-full border-collapse  text-left text-sm text-gray-500">
+              <thead className="">
+                <tr className="">
+                  <th
+                    scope="col"
+                    className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
+                  >
+                    User
+                  </th>
+
+                  <th
+                    scope="col"
+                    className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
+                  >
+                    Reason
+                  </th>
+
+                  <th
+                    scope="col"
+                    className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
+                  >
+                    Date
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 border-t border-gray-100">
+                {filteredData &&
+                  filteredData?.length > 0 &&
+                  filteredData?.map((reason, key) => {
+                    return (
+                      <tr key={key} className="">
+                        <th className="px-6 lg:px-4 xl:px-0 flex gap-3  py-4 font-normal text-gray-900">
+                          <div className="relative h-10 w-10">
+                            <img
+                              className="h-full w-full rounded-full object-cover object-center"
+                              src={reason?.profilePicture}
+                              alt=""
+                            />
+                            <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
+                          </div>
+                          <div className="text-sm">
+                            <div className="font-medium text-gray-700">
+                              {reason?.fullName}
+                            </div>
+                            <div className="text-gray-400">{reason?.email}</div>
+                          </div>
+                        </th>
+
+                        <td className="px-6 lg:px-4 xl:px-0 py- capitalize">
+                          {reason?.reason}
+                        </td>
+
+                        <td className="px-6 lg:px-4 xl:px-0 py-4  font-normal ">
+                          {convertDate(reason?.updatedAt)}
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          }
+        </div>
+      )}
     </div>
   );
 };

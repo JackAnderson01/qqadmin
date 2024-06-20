@@ -1,12 +1,12 @@
-body{
-  font-family: 'Gilroy', sans-serif;
+body {
+  font-family: "Gilroy", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
- /* width */
- ::-webkit-scrollbar {
+/* width */
+::-webkit-scrollbar {
   width: 6px;
   height: 4px;
 }
@@ -25,4 +25,4 @@ body{
 ::-webkit-scrollbar-thumb:hover {
   background: #b70c0c;
   cursor: pointer;
-} 
+}

@@ -3,7 +3,7 @@ import { ProgressBar2, ProgressBar3 } from "../../assets/export";
 
 const SummaryCard = ({ summary }) => {
   return (
-    <div className="h-[187px] border rounded-xl p-6 flex flex-col justify-between">
+    <div className="h-[227px] border rounded-xl p-6 flex flex-col justify-between">
       <div className="w-full flex justify-between items-center">
         <div>
           <p className="font-semibold text-base">{summary?.title}</p>

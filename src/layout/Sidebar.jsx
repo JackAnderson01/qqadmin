@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Logo } from "../assets/export";
 import SidebarLink from "./SidebarLink";
-import { LuUser } from "react-icons/lu";
+import { LuFolderOpenDot, LuUser } from "react-icons/lu";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoAnalyticsOutline } from "react-icons/io5";
@@ -9,6 +9,7 @@ import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { TbClover } from "react-icons/tb";
 import { HiOutlineLogout } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const sidebarRef = useRef(null);
@@ -50,15 +51,20 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           icon={<IoNotificationsOutline />}
         />
         <SidebarLink
+          title={"Reports"}
+          link={"/reports"}
+          icon={<LuFolderOpenDot />}
+        />
+        <SidebarLink
           title={"Revenue"}
           link={"/revenue"}
           icon={<TbBrandGoogleAnalytics />}
         />
-        <SidebarLink
+        {/* <SidebarLink
           title={"Subscriptions"}
           link={"/subscriptions"}
           icon={<IoAnalyticsOutline />}
-        />{" "}
+        /> */}
         <button
           onClick={() => navigateToLogin()}
           className="group w-full h-12 border border-gray-200 hover:border-[#c00000] focus:border-[#c00000] rounded-full flex justify-start items-center "

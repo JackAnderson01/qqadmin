@@ -1,11 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Logo } from "../assets/export";
 import { PiCaretDown } from "react-icons/pi";
 import Sidebar from "./Sidebar";
 import { CgMenuLeftAlt } from "react-icons/cg";
+import { GlobalContext } from "../context/GlobalContext";
+import Cookies from "js-cookie";
 
 const GlobalLayout = ({ page }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { navigate } = useContext(GlobalContext);
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (!token) {
+      navigate("/login", "Dashboard");
+    }
+  }, []);
 
   return (
     <div className="w-screen h-screen flex justify-start items-start">
