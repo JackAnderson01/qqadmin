@@ -6,7 +6,6 @@ import { GlobalContext } from "../../context/GlobalContext";
 import Error from "../globals/Error";
 import BtnLoader from "../globals/BtnLoader";
 import Success from "../globals/Success";
-import { NotificationContext } from "../../context/NotificationContext";
 
 const NotificationCreateModal = ({ isOpen, setIsOpen, setUpdate }) => {
   const notificationCreateRef = useRef();

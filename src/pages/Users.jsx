@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TbFlagHeart } from "react-icons/tb";
 import { FaHeart } from "react-icons/fa";
-import { UsersContext } from "../context/UsersContext";
 import Loader from "../components/globals/Loader";
 import { GlobalContext } from "../context/GlobalContext";
 import Cookies from "js-cookie";

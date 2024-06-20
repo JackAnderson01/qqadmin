@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthMockup, Logo } from "../assets/export";
 import { FaHeart } from "react-icons/fa";
-import { MatchesContext } from "../context/MatchesContext";
 import Loader from "../components/globals/Loader";
 import NoData from "../components/globals/NoData";
 import { GlobalContext } from "../context/GlobalContext";

@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Notification } from "../assets/export";
 import { IoSearchOutline } from "react-icons/io5";
 import NotificationCreateModal from "../components/notifications/NotificationCreateModal";
-import { NotificationContext } from "../context/NotificationContext";
 import Loader from "../components/globals/Loader";
 import { GlobalContext } from "../context/GlobalContext";
 import Cookies from "js-cookie";
