@@ -61,7 +61,7 @@ const NotificationCreateModal = ({ isOpen, setIsOpen, setUpdate }) => {
               setIsOpen(false);
             },
             (error) => {
-              setError(error?.response?.data?.error);
+              setError(error?.response?.data?.message);
 
               setLoading(false);
             }

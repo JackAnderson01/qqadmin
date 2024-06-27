@@ -12,6 +12,7 @@ const Users = () => {
   const { baseUrl, navigate } = useContext(GlobalContext);
   const [users, setUsers] = useState([]);
   const [userLoading, setUserLoading] = useState(false);
+  const [update, setUpdate] = useState(false);
 
   const getUsers = () => {
     const token = Cookies.get("token");
@@ -42,12 +43,42 @@ const Users = () => {
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [update]);
   const filteredData = users?.filter(
     (user) =>
       user?.fullName?.toLowerCase().includes(searchInput.toLowerCase()) ||
       user?.email?.toLowerCase().includes(searchInput?.toLowerCase())
   );
+
+  const blockUser = (id, block) => {
+    const token = Cookies.get("token");
+    if (token) {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      axios
+        .post(
+          `${baseUrl}/admin/toggleBlock`,
+          {
+            userId: id,
+            isBlocked: block,
+          },
+          { headers }
+        )
+        .then(
+          (response) => {
+            setUpdate((prev) => !prev);
+          },
+          (error) => {
+            setError(error?.response?.data?.message);
+          }
+        );
+    } else {
+      Cookies.remove("token");
+      navigate("/login");
+    }
+  };
+
   return (
     <div className="w-full flex flex-col justify-start items-start gap-3">
       <div className="w-full flex justify-start items-center gap-4  ">
@@ -136,9 +167,21 @@ const Users = () => {
                         </td>
 
                         <td className="px-6 lg:px-4 xl:px-0 py-4">
-                          <button className="w-auto px-2 h-6 bg-[#c00000] hover:opacity-80 text-white rounded-full text-xs">
-                            Block
-                          </button>
+                          {user?.isBlocked ? (
+                            <button
+                              onClick={() => blockUser(user?.id, false)}
+                              className="w-auto px-2 h-6 bg-green-700 hover:opacity-80 text-white rounded-full text-xs"
+                            >
+                              Unblock
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => blockUser(user?.id, true)}
+                              className="w-auto px-2 h-6 bg-[#c00000] hover:opacity-80 text-white rounded-full text-xs"
+                            >
+                              Block
+                            </button>
+                          )}
                         </td>
                       </tr>
                     );
