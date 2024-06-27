@@ -51,6 +51,7 @@ const Summary = () => {
         />
         <LineChartComponent
           revenue={data?.revenueMonthsData ? data?.revenueMonthsData : []}
+          total={data?.totalRevenue ? data?.totalRevenue : 0}
         />
       </div>
     </div>

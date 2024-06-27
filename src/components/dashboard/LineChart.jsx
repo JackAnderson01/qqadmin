@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const LineChartComponent = ({ revenue }) => {
+const LineChartComponent = ({ revenue, total }) => {
   return (
     <div className="h-[227px] border rounded-xl p-6 flex flex-col gap-4 justify-between">
       <div className="w-full flex justify-between items-center">
@@ -21,7 +21,7 @@ const LineChartComponent = ({ revenue }) => {
           </p>
         </div>
 
-        <p className="text-lg font-bold">$1256</p>
+        <p className="text-lg font-bold">${total}</p>
       </div>
       <div className="w-full h-[140px] flex justify-start items-start">
         {" "}
