@@ -42,7 +42,7 @@ const RecentTransactions = () => {
     getTransactions();
   }, [update]);
   return (
-    <div className="w-full h-auto lg:max-h-[475px] border rounded-xl flex flex-col py-4 md:py-6">
+    <div className="w-full h-auto lg:max-h-auto border rounded-xl flex flex-col py-4 md:py-6">
       <div className="px-6 mb-6 w-full h-auto flex justify-between items-center">
         <p className="text-base font-semibold">Recent Transactions</p>
 
