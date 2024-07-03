@@ -55,6 +55,7 @@ const Login = () => {
           (response) => {
             if (response?.data?.token) {
               Cookies.set("token", response?.data?.token, { expires: 7 });
+              Cookies.set("email", email);
               navigate("/dashboard", "Dashboard");
             }
             setLoading(false);

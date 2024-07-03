@@ -10,6 +10,7 @@ import { TbClover } from "react-icons/tb";
 import { HiOutlineLogout } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { RxUpdate } from "react-icons/rx";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const sidebarRef = useRef(null);
@@ -59,6 +60,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           title={"Revenue"}
           link={"/revenue"}
           icon={<TbBrandGoogleAnalytics />}
+        />
+        <SidebarLink
+          title={"Update Password"}
+          link={"/update-password"}
+          icon={<RxUpdate />}
         />
         {/* <SidebarLink
           title={"Subscriptions"}

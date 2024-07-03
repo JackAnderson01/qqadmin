@@ -13,6 +13,7 @@ import Subscription from "./pages/Subscription";
 import Revenue from "./pages/Revenue";
 import Matches from "./pages/Matches";
 import Reports from "./pages/Reports";
+import UpdatePassword from "./pages/UpdatePassword";
 
 function App() {
   return (
@@ -22,6 +23,11 @@ function App() {
       <Route path="/verify-email" element={<VerifyEmail />} />
       <Route path="/verify-otp" element={<VerifyOtp />} />
       <Route path="/change-password" element={<ChangePassword />} />
+      <Route
+        path="/update-password"
+        element={<GlobalLayout page={<UpdatePassword />} />}
+      />
+
       <Route
         path="/dashboard"
         element={<GlobalLayout page={<Dashboard />} />}
