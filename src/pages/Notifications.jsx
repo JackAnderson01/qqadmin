@@ -32,7 +32,6 @@ const Notifications = () => {
         (error) => {
           setNotificationsLoading(false);
           if (error?.response?.status == 401) {
-            setIsLoggedIn(false);
             Cookies.remove("token");
             navigate("/login");
           }

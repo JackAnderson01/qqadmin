@@ -30,7 +30,6 @@ const Users = () => {
         (error) => {
           setUserLoading(false);
           if (error?.response?.status == 401) {
-            setIsLoggedIn(false);
             Cookies.remove("token");
             navigate("/login");
           }
@@ -142,7 +141,11 @@ const Users = () => {
                           <div className="relative h-10 w-10">
                             <img
                               className="h-full w-full rounded-full object-cover object-center"
-                              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                              src={
+                                user?.profilePicture
+                                  ? user?.profilePicture
+                                  : "https://qq-admin.vercel.app/assets/logo-agm6qbPj.png"
+                              }
                               alt=""
                             />
                             <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
