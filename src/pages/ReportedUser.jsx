@@ -6,16 +6,19 @@ import { GlobalContext } from "../context/GlobalContext";
 import Cookies from "js-cookie";
 import axios from "axios";
 import NoData from "../components/globals/NoData";
-import UserTableRow from "../components/users/UserTableRow";
-const Users = () => {
+import BlockModal from "../components/globals/BloackModal";
+
+const ReportedUser = () => {
   const [searchInput, setSearchInput] = useState("");
   const { baseUrl, navigate } = useContext(GlobalContext);
-  const [users, setUsers] = useState([]);
+  const [reporteduser, setReporteduser] = useState([]);
   const [userLoading, setUserLoading] = useState(false);
   const [update, setUpdate] = useState(false);
-  const [tabs, setTabs] = useState("all");
   const [paginationData, setPaginationData] = useState([]);
-
+  const [loading, setLoading] = useState(false);
+  const [openBlock, setOpenBlock] = useState(false);
+  const [isBlocked, setIsBlocked] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
   const getUsers = () => {
     const token = Cookies.get("token");
 
@@ -24,10 +27,10 @@ const Users = () => {
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-      axios.get(`${baseUrl}/admin/users`, { headers }).then(
+      axios.get(`${baseUrl}/admin/reports`, { headers }).then(
         (response) => {
-          setUsers(response?.data?.data);
-          console.log(response?.data?.data, "usersusersDetails");
+          setReporteduser(response?.data?.data);
+          console.log(reporteduser, "reporteduser");
           setUserLoading(false);
         },
         (error) => {
@@ -43,13 +46,65 @@ const Users = () => {
     }
   };
 
+  const blockUser = (id, block) => {
+    const token = Cookies.get("token");
+    if (!token) {
+      Cookies.remove("token");
+      navigate("/login");
+      return;
+    }
+
+    const headers = { Authorization: `Bearer ${token}` };
+    setLoading(true);
+
+    axios
+      .post(
+        `${baseUrl}/admin/toggleBlock`,
+        { userId: id, isBlocked: block },
+        { headers }
+      )
+      .then(() => {
+        setReporteduser((prev) =>
+          prev.map((user) =>
+            user.reportedUser.id === id
+              ? {
+                  ...user,
+                  reportedUser: { ...user.reportedUser, isBlocked: block },
+                }
+              : user
+          )
+        );
+        setOpenBlock(false);
+        getUsers();
+      })
+      .catch((error) => {
+        console.error(error?.response?.data?.message || "Error occurred");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const handleBlockUnblockClick = (id, block) => {
+    setSelectedUser(id);
+    setIsBlocked(block);
+    setOpenBlock(true);
+  };
+
   useEffect(() => {
     getUsers();
   }, [update]);
-  const filteredData = users?.filter(
-    (user) =>
-      user?.fullName?.toLowerCase().includes(searchInput.toLowerCase()) ||
-      user?.email?.toLowerCase().includes(searchInput?.toLowerCase())
+
+  const filteredData = reporteduser?.filter(
+    (item) =>
+      item?.reportedUser?.fullName
+        ?.toLowerCase()
+        .includes(searchInput.toLowerCase()) ||
+      item?.reportedUser?.email
+        ?.toLowerCase()
+        .includes(searchInput.toLowerCase()) ||
+      item?.user?.fullName?.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item?.user?.email?.toLowerCase().includes(searchInput.toLowerCase())
   );
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,6 +116,7 @@ const Users = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+  console.log(currentData, "currentDatacurrentData");
 
   const goToPage = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -86,11 +142,11 @@ const Users = () => {
 
         {userLoading ? (
           <Loader />
-        ) : filteredData?.length == 0 ? (
+        ) : reporteduser?.length == 0 ? (
           <NoData />
         ) : (
-          <div className="w-full overflow-x-auto">
-            <div className=" rounded-xl border border-gray-200 bg-white px-6 py-2 ">
+          <div className="w-full overflow-x-auto ">
+            <div className="rounded-xl border border-gray-200 bg-white px-6 py-2 ">
               {
                 <table className="w-full border-collapse  text-left text-sm text-gray-500">
                   <thead className="">
@@ -99,21 +155,28 @@ const Users = () => {
                         scope="col"
                         className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
                       >
-                        Name
+                        User
                       </th>
                       <th
                         scope="col"
                         className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
                       >
-                        Age
+                        Reported User
                       </th>
 
                       <th
                         scope="col"
                         className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
                       >
-                        Gender
+                        Reason
                       </th>
+                      <th
+                        scope="col"
+                        className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
+                      >
+                        Discription
+                      </th>
+
                       <th
                         scope="col"
                         className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
@@ -124,35 +187,104 @@ const Users = () => {
                         scope="col"
                         className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
                       >
-                        Location
-                      </th>
-
-                      <th
-                        scope="col"
-                        className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
-                      >
-                        Matches
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
-                      >
                         Action
                       </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-                    {filteredData &&
-                      filteredData?.length > 0 &&
-                      currentData?.map((user, key) => {
-                        return (
-                          <UserTableRow
-                            user={user}
-                            key={key}
-                            setUpdate={setUpdate}
-                          />
-                        );
-                      })}
+                    {currentData?.map((item, key) => (
+                      <tr className="" key={key}>
+                        <th className="px-6 lg:px-4 xl:px-0 flex gap-3  py-4 font-normal text-gray-900">
+                          <div className="relative h-10 w-10">
+                            <img
+                              className="h-full w-full rounded-full object-cover object-center"
+                              src={
+                                item?.user?.profilePicture
+                                  ? item?.user?.profilePicture
+                                  : "https://qq-admin.vercel.app/assets/logo-agm6qbPj.png"
+                              }
+                              alt=""
+                            />
+                          </div>
+                          <div className="text-sm">
+                            <div className="font-medium text-gray-700">
+                              {item?.user?.fullName || "N/A"}
+                            </div>
+                            <div className="text-gray-400">
+                              {item?.user?.email || "N/A"}
+                            </div>
+                          </div>
+                        </th>
+                        <td>
+                          <th className="px-6 lg:px-4 xl:px-0 flex gap-3  py-4 font-normal text-gray-900">
+                            <div className="relative h-10 w-10">
+                              <img
+                                className="h-full w-full rounded-full object-cover object-center"
+                                src={
+                                  item?.reportedUser?.profilePicture
+                                    ? item?.reportedUser?.profilePicture
+                                    : "https://qq-admin.vercel.app/assets/logo-agm6qbPj.png"
+                                }
+                                alt=""
+                              />
+                            </div>
+                            <div className="text-sm">
+                              <div className="font-medium text-gray-700">
+                                {item?.reportedUser?.fullName || "N/A"}
+                              </div>
+                              <div className="text-gray-400">
+                                {item?.reportedUser?.email || "N/A"}
+                              </div>
+                            </div>
+                          </th>
+                        </td>
+
+                        <td className="px-6 lg:px-4 xl:px-0 py- capitalize">
+                          {item?.reason || "N/A"}
+                        </td>
+                        <td className="px-6 lg:px-4 xl:px-0 py- capitalize">
+                          {item?.description || "N/A"}
+                        </td>
+                        <td className="px-6 lg:px-4 xl:px-0 py- capitalize">
+                          {" "}
+                          {new Date(item?.cretaedAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "2-digit",
+                              day: "2-digit",
+                            }
+                          )}
+                        </td>
+                        <td>
+                          {item.reportedUser.isBlocked ? (
+                            <button
+                              onClick={() =>
+                                handleBlockUnblockClick(
+                                  item?.reportedUser?.id,
+                                  false
+                                )
+                              }
+                              className="w-auto px-2 h-6 bg-green-700 hover:opacity-80 text-white rounded-full text-xs"
+                            >
+                              Unblock
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() =>
+                                handleBlockUnblockClick(
+                                  item?.reportedUser?.id,
+                                  true
+                                )
+                              }
+                              className="w-auto px-2 h-6 bg-[#c00000] hover:opacity-80 text-white rounded-full text-xs"
+                            >
+                              Block
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               }
@@ -230,8 +362,15 @@ const Users = () => {
           </div>
         )}
       </div>
+      <BlockModal
+        isOpen={openBlock}
+        onRequestClose={() => setOpenBlock(false)}
+        onConfirm={() => blockUser(selectedUser, isBlocked)}
+        loading={loading}
+        isBlocked={isBlocked}
+      />
     </>
   );
 };
 
-export default Users;
+export default ReportedUser;

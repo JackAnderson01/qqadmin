@@ -11,6 +11,7 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { RxUpdate } from "react-icons/rx";
+import { FaUserSlash } from "react-icons/fa";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const sidebarRef = useRef(null);
@@ -52,15 +53,21 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           icon={<IoNotificationsOutline />}
         />
         <SidebarLink
-          title={"Reports"}
+          title={"Deleted / Deactivated Users"}
           link={"/reports"}
-          icon={<LuFolderOpenDot />}
+          icon={<FaUserSlash />}
         />
         <SidebarLink
+          title={"Reported Users"}
+          link={"/reporteduser"}
+          icon={<LuFolderOpenDot />}
+        />
+        {/* <SidebarLink
           title={"Revenue"}
           link={"/revenue"}
           icon={<TbBrandGoogleAnalytics />}
-        />
+        /> */}
+       
         <SidebarLink
           title={"Update Password"}
           link={"/update-password"}

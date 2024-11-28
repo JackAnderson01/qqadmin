@@ -9,7 +9,7 @@ const Dashboard = () => {
       <Summary />
       <div className="w-full py-2 grid grid-cols-1  gap-4 ">
         <div className="w-full">
-          <RecentTransactions />
+          {/* <RecentTransactions /> */}
         </div>
       </div>
     </div>
