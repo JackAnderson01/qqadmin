@@ -62,11 +62,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           link={"/reporteduser"}
           icon={<LuFolderOpenDot />}
         />
-        {/* <SidebarLink
-          title={"Revenue"}
-          link={"/revenue"}
-          icon={<TbBrandGoogleAnalytics />}
-        /> */}
+       
        
         <SidebarLink
           title={"Update Password"}
