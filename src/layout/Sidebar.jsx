@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { RxUpdate } from "react-icons/rx";
 import { FaUserSlash } from "react-icons/fa";
+import { MdReportGmailerrorred } from "react-icons/md";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const sidebarRef = useRef(null);
@@ -60,7 +61,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         <SidebarLink
           title={"Reported Users"}
           link={"/reporteduser"}
-          icon={<LuFolderOpenDot />}
+          icon={<MdReportGmailerrorred />}
         />
        
        
