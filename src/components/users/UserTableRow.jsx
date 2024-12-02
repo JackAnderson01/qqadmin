@@ -94,7 +94,7 @@ const UserTableRow = ({ user, setUpdate }) => {
         <td className="px-6 lg:px-4 xl:px-0py-4  font-normal ">
           <div className="flex gap-1 ">
             <FaHeart className="text-lg text-red-600" />
-            <span>{user?.matches || "N/A"}</span>
+            <span>{user?.matches}</span>
           </div>
         </td>
 
