@@ -145,7 +145,7 @@ const Login = () => {
                     onClick={() => setIsPassVisible((prev) => !prev)}
                     className="w-[18px] h-[18px] absolute right-4"
                   >
-                    {isPassVisible ? <BsEye /> : <BsEyeSlash />}
+                    {isPassVisible ? <BsEye color="#bbb" /> : <BsEyeSlash color="#bbb"   />}
                     {/* <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="#bbb"
