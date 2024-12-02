@@ -174,7 +174,7 @@ const ReportedUser = () => {
                         scope="col"
                         className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
                       >
-                        Discription
+                        Description
                       </th>
 
                       <th

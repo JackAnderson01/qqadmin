@@ -14,7 +14,7 @@ const StatesCard = ({ data, dataLoading }) => {
     },
     {
       id: 2,
-      title: "Least Location",
+      title: "Least Active Location ",
       value: data?.leastLocation?.count || "N/A",
       name: data?.leastLocation?._id || "N/A",
       icon: <IoIosArrowDown size={18} />,
