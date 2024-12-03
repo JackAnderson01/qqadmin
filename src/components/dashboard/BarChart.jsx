@@ -7,7 +7,7 @@ const BarChartComponent = ({ matches,matchescount }) => {
     <div className="h-[343px] border rounded-xl p-6 flex flex-col gap-4 justify-between">
       <div className="w-full flex justify-between items-center">
         <div>
-          <p className="font-semibold text-base">Total Matches ({matchescount || 'N/A'}) </p>
+          <p className="font-semibold text-base">Total Matches ({matchescount}) </p>
           <p className="uppercase font-medium text-[#5C5F6A] text-xs">
             This Year 
           </p>
