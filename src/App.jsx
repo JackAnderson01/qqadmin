@@ -15,7 +15,7 @@ import Matches from "./pages/Matches";
 import Reports from "./pages/Reports";
 import UpdatePassword from "./pages/UpdatePassword";
 import ReportedUser from "./pages/ReportedUser";
-
+import LocationTrends from "./pages/LocationTrends";
 
 function App() {
   return (
@@ -39,14 +39,21 @@ function App() {
         path="/notifications"
         element={<GlobalLayout page={<Notifications />} />}
       />
+      <Route
+        path="/locations"
+        element={<GlobalLayout page={<LocationTrends />} />}
+      />
       {/* <Route
         path="/subscriptions"
         element={<GlobalLayout page={<Subscription />} />}
       /> */}
       <Route path="/reports" element={<GlobalLayout page={<Reports />} />} />
-      <Route path="/reporteduser" element={<GlobalLayout page={<ReportedUser />} />} />
+      <Route
+        path="/reporteduser"
+        element={<GlobalLayout page={<ReportedUser />} />}
+      />
       {/* <Route path="/revenue" element={<GlobalLayout page={<Revenue />} />} /> */}
-      
+
       <Route path="/reports" element={<GlobalLayout page={<Reports />} />} />
       <Route path="/matches" element={<GlobalLayout page={<Matches />} />} />
     </Routes>

@@ -11,7 +11,7 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { RxUpdate } from "react-icons/rx";
-import { FaUserSlash } from "react-icons/fa";
+import { FaMapMarkerAlt, FaUserSlash } from "react-icons/fa";
 import { MdReportGmailerrorred } from "react-icons/md";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
@@ -62,6 +62,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           title={"Reported Users"}
           link={"/reporteduser"}
           icon={<MdReportGmailerrorred />}
+        />
+        <SidebarLink
+          title={"Location & Trends"}
+          link={"/locations"}
+          icon={<FaMapMarkerAlt />}
         />
        
        

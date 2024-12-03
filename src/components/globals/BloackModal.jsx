@@ -23,9 +23,12 @@ const BlockModal = ({
           {isBlocked ? "Block" : "Unblock"} User
         </h2>
         <p className="text-[#252525] text-[16px] font-normal leading-[25.34px] mb-6">
-          Are you sure you want to {isBlocked ? "block" : "unblock"} this user.
+          Are you sure you want to {isBlocked ? "block" : "unblock"} this user?{" "}
+          <br />
+          {isBlocked
+            ? "Once blocked, the user will no longer be able to log in or access their account."
+            : "Unblocking will restore the user's access to their account."}
         </p>
-
         <div className="flex justify-center space-x-4">
           <button
             onClick={onRequestClose}
@@ -56,5 +59,3 @@ const BlockModal = ({
 };
 
 export default BlockModal;
-
-

@@ -6,7 +6,7 @@ import axios from "axios";
 import { GlobalContext } from "../../context/GlobalContext";
 import BlockModal from "../globals/BloackModal";
 
-const UserTableRow = ({ user, setUpdate }) => {
+const UserTableRow = ({ user, setUpdate ,userLoading}) => {
   const [loading, setLoading] = useState(false);
   const { baseUrl, navigate } = useContext(GlobalContext);
   const [openBlock, setOpenBlock] = useState(false);
@@ -54,6 +54,7 @@ const UserTableRow = ({ user, setUpdate }) => {
 
   return (
     <>
+    
       <tr className="">
         <th className="px-6 lg:px-4 xl:px-0 flex gap-3  py-4 font-normal text-gray-900">
           <div className="relative h-10 w-10">
@@ -89,6 +90,9 @@ const UserTableRow = ({ user, setUpdate }) => {
         </td>
         <td className="px-6 lg:px-4 xl:px-0 py- capitalize">
           {user?.state || "N/A"}
+        </td>
+        <td className="px-6 lg:px-4 xl:px-0 py- capitalize">
+          {user?.city || "N/A"}
         </td>
 
         <td className="px-6 lg:px-4 xl:px-0py-4  font-normal ">
