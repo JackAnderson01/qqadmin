@@ -4,7 +4,7 @@ import { BarChart, Bar, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 const BarChartComponent = ({ matches,matchescount }) => {
 
   return (
-    <div className="h-[227px] border rounded-xl p-6 flex flex-col gap-4 justify-between">
+    <div className="h-[343px] border rounded-xl p-6 flex flex-col gap-4 justify-between">
       <div className="w-full flex justify-between items-center">
         <div>
           <p className="font-semibold text-base">Total Matches ({matchescount || 'N/A'}) </p>
