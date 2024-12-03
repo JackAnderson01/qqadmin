@@ -132,7 +132,7 @@ const Users = () => {
                     onClick={handleDropdownToggle}
                   >
                     <span className="ml-1 flex">
-                      Age
+                     Age
                       {isDropdownOpen ? (
                         <MdArrowDropUp size={18} />
                       ) : (
@@ -157,7 +157,7 @@ const Users = () => {
                               className="px-4 py-2 text-[#c00000] hover:bg-[#f3f3f3] cursor-pointer"
                               onClick={() => handleSelectAge(range)}
                             >
-                              {range}
+                              {range === "75" ? "75+" : range}
                             </li>
                           ))}
                         </ul>
