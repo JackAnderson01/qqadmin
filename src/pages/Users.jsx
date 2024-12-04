@@ -212,14 +212,15 @@ const Users = () => {
                     scope="col"
                     className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
                   >
-                    City
+                    State
                   </th>
                   <th
                     scope="col"
                     className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
                   >
-                    State
+                    City
                   </th>
+                 
                   <th
                     scope="col"
                     className="px-6 lg:px-4 xl:px-0 py-4 font-medium text-[#c00000]"
